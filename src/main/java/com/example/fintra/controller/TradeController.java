@@ -4,9 +4,11 @@ import com.example.fintra.model.Trade;
 import com.example.fintra.repository.TradeRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -22,8 +24,19 @@ public class TradeController {
     }
 
     @GetMapping
-    public List<Trade> getTrades() {
-        return tradeRepository.findAll();
+    public List<Trade> getTrades(
+            @RequestParam(value = "from_date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+            @RequestParam(value = "to_date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
+
+        if (fromDate != null && toDate != null) {
+            return tradeRepository.findByBuyDateBetween(fromDate, toDate);
+        } else if (fromDate != null) {
+            return tradeRepository.findByBuyDateGreaterThanEqual(fromDate);
+        } else if (toDate != null) {
+            return tradeRepository.findByBuyDateLessThanEqual(toDate);
+        } else {
+            return tradeRepository.findAll();
+        }
     }
 
     @GetMapping("/{id}")
