@@ -8,6 +8,7 @@ Fintra is a Spring Boot application that provides a RESTful API for managing sto
 -   **Data Persistence:** Uses Spring Data JPA to store trade data in a MySQL database.
 -   **Input Validation:** Ensures that all incoming data is valid and meets the required constraints.
 -   **In-Memory Testing:** The test environment is configured to use an in-memory H2 database for fast and reliable testing.
+-   **API Documentation:** The API is documented using the OpenAPI 3.0 specification in the `openapi.yaml` file.
 
 ## Getting Started
 
@@ -36,3 +37,7 @@ Fintra is a Spring Boot application that provides a RESTful API for managing sto
     ```
 
 The application will start on port 8080.
+
+## API Documentation
+
+The API is documented in the `openapi.yaml` file, which follows the OpenAPI 3.0 specification. You can use tools like [Swagger UI](https://swagger.io/tools/swagger-ui/) to view the documentation in an interactive way.
