@@ -1,0 +1,126 @@
+openapi: 3.0.0
+info:
+  title: Fintra Stock Trading API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+components:
+  schemas:
+    Trade:
+      type: object
+      required:
+        - stockSymbol
+        - buyPrice
+        - buyDate
+        - quantity
+      properties:
+        id:
+          type: integer
+          format: int64
+        stockSymbol:
+          type: string
+        buyPrice:
+          type: number
+          format: double
+        buyDate:
+          type: string
+          format: date
+        quantity:
+          type: integer
+        totalBuyValue:
+          type: number
+          format: double
+        sellDate:
+          type: string
+          format: date
+        sellPrice:
+          type: number
+          format: double
+        totalSellValue:
+          type: number
+          format: double
+paths:
+  /trades:
+    get:
+      summary: Get all trades
+      responses:
+        '200':
+          description: A list of trades
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trade'
+    post:
+      summary: Add a new trade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Trade'
+      responses:
+        '200':
+          description: The created trade
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trade'
+  /trades/{id}:
+    get:
+      summary: Get a trade by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The trade
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trade'
+        '404':
+          description: Trade not found
+    put:
+      summary: Update a trade
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Trade'
+      responses:
+        '200':
+          description: The updated trade
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trade'
+        '404':
+          description: Trade not found
+    delete:
+      summary: Delete a trade
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Trade deleted successfully
+        '404':
+          description: Trade not found
