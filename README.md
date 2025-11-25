@@ -25,11 +25,14 @@ Fintra is a Spring Boot application that provides a RESTful API for managing sto
     git clone https://github.com/your-username/fintra.git
     cd fintra
     ```
-2.  **Configure the database:**
-    -   Open `src/main/resources/application.properties`.
-    -   Set the `spring.datasource.password` property to your MySQL root password. You can also set this as an environment variable:
+2.  **Configure the environment:**
+    -   **Database:** Set the `SPRING_DATASOURCE_PASSWORD` environment variable to your MySQL root password.
         ```sh
         export SPRING_DATASOURCE_PASSWORD=your_password
+        ```
+    -   **JWT Secret:** Set the `JWT_SECRET` environment variable to a long, random, and secure string. This is required for signing authentication tokens.
+        ```sh
+        export JWT_SECRET=your_super_secret_key_that_is_long_and_secure
         ```
 3.  **Run the application:**
     ```sh
